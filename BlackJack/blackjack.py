@@ -1,5 +1,14 @@
 import random 
 
+class Card: 
+    def __init__(self, suit, rank):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return f"{self.rank['rank']} of {self.suit}"
+    
+
 class Deck: 
 
     def __init__(self):
@@ -24,21 +33,41 @@ class Deck:
 
         for suit in suits:
             for rank in ranks:
-                self.cards.append([suit, rank])
+                self.cards.append(Card(suit, rank))
                 
     def shuffle(self):
-        random.shuffle(self.cards)
+        if len(self.cards) > 1:
+            random.shuffle(self.cards)
+        else: 
+            print("One card left, no need to shuffle")
 
     def deal(self, number):
         cards_dealt = []
         for x in range(number):
-            card = self.cards.pop()
-            cards_dealt.append(card)
+            if len(self.cards) > 0: 
+                card = self.cards.pop()
+                cards_dealt.append(card)
+            else:
+                print("No cards left")
 
         return cards_dealt
 
-deck1 = Deck()
-deck2 = Deck()
+class Hand:
+    def __init__(self, dealer=False):
+        self.cards = []
+        self.value = 0
+        self.dealer = dealer 
+    
+    def add_card(self, card_list):
+        self.cards.extend(card_list)
 
-deck2.shuffle()
-print(deck1.cards)
+deck = Deck()
+deck.shuffle()
+
+hand = Hand()
+hand.add_card(deck.deal(2))
+
+for card in hand.cards:
+    print(card)
+
+print(len(deck.cards))
