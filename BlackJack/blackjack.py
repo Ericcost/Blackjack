@@ -82,10 +82,11 @@ class Hand:
     def  is_blackjack(self):
         return self.get_value() == 21
     
-    def display(self):
+    def display(self, show_all_dealer_cards=False):
         print(f''' {"Dealer's" if self.dealer else "Your"} hand:  ''')
         for index, card in enumerate(self.cards):
-            if index == 0 and self.dealer:
+            if index == 0 and self.dealer \
+                and not show_all_dealer_cards and not self.is_bkackjack():
                 print('hidden')
             else: 
                 print(card)
@@ -93,12 +94,18 @@ class Hand:
         if not self.dealer:
             print(f"Value: {self.get_value()}")
         
+class Game:
+    # def __init__(self):
+
+    def play(self):
+        game_number = 0
+        games_to_play = 0
+
+        try: 
+            game_to_play = int(input("How many games do you want to play ? "))
+        except:
+            
 
 
-deck = Deck()
-deck.shuffle()
-
-hand = Hand()
-hand.add_card(deck.deal(2))
-
-hand.display()
+g = Game()
+g.play()
