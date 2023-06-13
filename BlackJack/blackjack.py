@@ -70,7 +70,7 @@ class Hand:
             self.value += card_value
             if card.rank['value'] == "A":
                 has_ace = True
-                
+
         if has_ace and self.value > 21:
             self.value -= 10
         # return self.value
@@ -84,8 +84,11 @@ class Hand:
     
     def display(self):
         print(f''' {"Dealer's" if self.dealer else "Your"} hand:  ''')
-        for card in self.cards:
-            print(card)
+        for index, card in enumerate(self.cards):
+            if index == 0 and self.dealer:
+                print('hidden')
+            else: 
+                print(card)
 
         if not self.dealer:
             print(f"Value: {self.get_value()}")
